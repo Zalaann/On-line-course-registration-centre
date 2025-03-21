@@ -35,12 +35,12 @@ The system utilizes the following Supabase tables:
 
 ### Staff Access
 - **Lecturer:** 
-  - ID: L123
-  - Password: password
+  - ID: admin
+  - Password: admin
   
 - **Admission Officer:**
-  - ID: O456
-  - Password: password
+  - ID: admin
+  - Password: admin
 
 ## Application Workflow
 

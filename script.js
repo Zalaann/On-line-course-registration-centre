@@ -511,7 +511,7 @@ async function handleAdminLogin(e) {
         // Check if it's a lecturer or officer login
         if (role === 'lecturer') {
             // Demo lecturer credentials (in a real app, this would be a database check)
-            if (staffId === 'L123' && password === 'password') {
+            if (staffId === 'admin' && password === 'admin') {
                 localStorage.setItem('staffId', staffId);
                 localStorage.setItem('staffName', 'Demo Lecturer');
                 localStorage.setItem('staffRole', 'lecturer');
@@ -522,7 +522,7 @@ async function handleAdminLogin(e) {
             }
         } else if (role === 'officer') {
             // Demo officer credentials
-            if (staffId === 'O456' && password === 'password') {
+            if (staffId === 'admin' && password === 'admin') {
                 localStorage.setItem('staffId', staffId);
                 localStorage.setItem('staffName', 'Demo Officer');
                 localStorage.setItem('staffRole', 'officer');
