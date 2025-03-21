@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses | University Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">University Course Registration</a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="courses.html" class="active">Courses</a>
+                    <a href="lecturer_dashboard.html" class="staff-only for-logged-in">Dashboard</a>
+                    <a href="officer_dashboard.html" class="staff-only for-logged-in">Dashboard</a>
+                    <a href="enroll.html" class="for-logged-in student-only">Enroll</a>
+                    <a href="login.html" class="for-logged-out">Login</a>
+                    <a href="register.html" class="for-logged-out">Register</a>
+                    <a href="admin_login.html" class="for-logged-out">Staff Login</a>
+                    <a href="#" class="logout-btn for-logged-in">Logout</a>
+                    <span class="student-name for-logged-in student-only">Student</span>
+                    <span class="staff-name for-logged-in staff-only">Staff</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section class="courses-section">
+            <h1>All Available Courses</h1>
+            <p>Browse through our wide range of courses and register for the ones that match your academic goals.</p>
+            
+            <div class="student-info for-logged-in">
+                <p>Welcome, <span class="student-name">Student</span>! Click "Enroll Now" on any course to register.</p>
+            </div>
+            
+            <div class="search-filter">
+                <input type="text" id="course-search" placeholder="Search courses..." class="search-input">
+            </div>
+            
+            <div id="courses-list" class="courses-grid">
+                <!-- Courses will be loaded here from Supabase -->
+                <div class="course-card placeholder">
+                    <h3>Loading courses...</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 University Registration System</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

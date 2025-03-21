@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enroll in Courses | University Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">University Course Registration</a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="courses.html">Courses</a>
+                    <a href="enroll.html" class="active for-logged-in student-only">Enroll</a>
+                    <a href="login.html" class="for-logged-out">Login</a>
+                    <a href="register.html" class="for-logged-out">Register</a>
+                    <a href="admin_login.html" class="for-logged-out">Staff Login</a>
+                    <a href="#" class="logout-btn for-logged-in">Logout</a>
+                    <span class="student-name for-logged-in student-only">Student</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section class="form-section">
+            <h1>Course Enrollment</h1>
+            <p>Select a course to enroll</p>
+            
+            <div class="student-info for-logged-in">
+                <p>Welcome, <span class="student-name">Student</span></p>
+            </div>
+            
+            <div class="for-logged-out">
+                <p class="form-message">Please <a href="login.html">login</a> or <a href="register.html">register</a> to enroll in courses.</p>
+            </div>
+            
+            <form id="enrollment-form" class="auth-form for-logged-in">
+                <div class="form-group">
+                    <label for="course-select">Select Course</label>
+                    <select id="course-select" name="courseCode" required>
+                        <option value="">Loading courses...</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn primary">Enroll Now</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 University Registration System</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

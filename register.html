@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | University Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">University Course Registration</a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="courses.html">Courses</a>
+                    <a href="login.html" class="for-logged-out">Login</a>
+                    <a href="register.html" class="active for-logged-out">Register</a>
+                    <a href="admin_login.html" class="for-logged-out">Staff Login</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section class="form-section">
+            <h1>Student Registration</h1>
+            <p>Create your account to register for courses</p>
+            
+            <form id="registration-form" class="auth-form">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address (optional)</label>
+                    <textarea id="address" name="address" rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn primary">Register</button>
+                
+                <p class="form-footer">
+                    Already have an account? <a href="login.html">Login</a>
+                </p>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 University Registration System</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

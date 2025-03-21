@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login - University Course Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">University Course Registration</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="courses.html">Courses</a>
+                <a href="login.html" class="for-logged-out">Student Login</a>
+                <a href="register.html" class="for-logged-out">Register</a>
+                <a href="admin_login.html" class="active for-logged-out">Staff Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="form-container">
+            <h1>Staff Login</h1>
+            <div class="tabs">
+                <button class="tab active" data-role="lecturer">Lecturer</button>
+                <button class="tab" data-role="officer">Admission Officer</button>
+            </div>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="staffId">Staff ID</label>
+                    <input type="text" id="staffId" name="staffId" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <input type="hidden" id="role" name="role" value="lecturer">
+                <button type="submit" class="btn primary">Login</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 University Course Registration. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Handle tab switching
+        const tabs = document.querySelectorAll('.tab');
+        const roleInput = document.getElementById('role');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Update hidden role input
+                roleInput.value = tab.dataset.role;
+            });
+        });
+    </script>
+</body>
+</html> 

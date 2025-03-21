@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Course Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">University Course Registration</a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="courses.html">Courses</a>
+                    <a href="enroll.html" class="for-logged-in student-only">Enroll</a>
+                    <a href="login.html" class="for-logged-out">Login</a>
+                    <a href="register.html" class="for-logged-out">Register</a>
+                    <a href="admin_login.html" class="for-logged-out">Staff Login</a>
+                    <a href="#" class="logout-btn for-logged-in">Logout</a>
+                    <span class="student-name for-logged-in student-only">Student</span>
+                    <span class="staff-name for-logged-in staff-only">Staff</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <h1>Welcome to the University Online Course Registration</h1>
+            <p>Streamline your academic journey with our easy-to-use course registration system</p>
+            
+            <div class="student-info for-logged-in">
+                <p>Welcome back, <span class="student-name">Student</span>!</p>
+            </div>
+            
+            <div class="button-group">
+                <a href="courses.html" class="btn primary">Browse Courses</a>
+                <a href="register.html" class="btn secondary for-logged-out">Register Now</a>
+                <a href="enroll.html" class="btn secondary for-logged-in">Enroll in Courses</a>
+            </div>
+        </section>
+
+        <section class="featured-courses">
+            <h2>Available Courses</h2>
+            <p>Check out our selection of courses available for registration</p>
+            
+            <div id="home-courses-list" class="courses-grid">
+                <!-- Courses will be loaded here -->
+                <div class="course-card placeholder">
+                    <h3>Loading courses...</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 University Registration System</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

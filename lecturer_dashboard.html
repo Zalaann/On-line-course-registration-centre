@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer Dashboard - University Course Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">University Course Registration</a>
+            </div>
+            <div class="nav-links">
+                <a href="lecturer_dashboard.html" class="active staff-only">Dashboard</a>
+                <a href="index.html">Home</a>
+                <a href="courses.html">Courses</a>
+                <a href="#" class="logout-btn for-logged-in">Logout</a>
+                <span class="staff-name for-logged-in staff-only">Staff</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container dashboard">
+        <h1>Lecturer Dashboard</h1>
+        <p>Welcome, <span class="staff-name">Lecturer</span>. Here you can review student applications and check their qualifications.</p>
+        
+        <div class="dashboard-filters">
+            <h2>Application Filters</h2>
+            <div class="filter-controls">
+                <select id="status-filter">
+                    <option value="all">All Applications</option>
+                    <option value="pending" selected>Pending Review</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+                <select id="course-filter">
+                    <option value="all">All Courses</option>
+                    <!-- Course options will be loaded dynamically -->
+                </select>
+                <button id="refresh-btn" class="btn secondary">Refresh</button>
+            </div>
+        </div>
+        
+        <div class="data-table-container">
+            <h2>Student Applications</h2>
+            <table class="data-table" id="applications-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="applications-list">
+                    <tr class="placeholder-row">
+                        <td colspan="6">Loading applications...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Application Review Modal -->
+    <div class="modal" id="review-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Review Application</h2>
+            <div id="application-details">
+                <p><strong>Student ID:</strong> <span id="modal-student-id"></span></p>
+                <p><strong>Name:</strong> <span id="modal-student-name"></span></p>
+                <p><strong>Email:</strong> <span id="modal-student-email"></span></p>
+                <p><strong>Address:</strong> <span id="modal-student-address"></span></p>
+                <p><strong>Course:</strong> <span id="modal-course-name"></span></p>
+            </div>
+            <div class="form-group">
+                <label for="review-notes">Review Notes:</label>
+                <textarea id="review-notes" rows="4"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="approve-btn" class="btn success">Approve</button>
+                <button id="reject-btn" class="btn danger">Reject</button>
+                <button class="btn secondary close-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 University Course Registration. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
