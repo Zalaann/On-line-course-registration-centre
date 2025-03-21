@@ -140,8 +140,8 @@ async function handleRegistration(e) {
         localStorage.setItem('studentId', studentId);
         localStorage.setItem('studentName', fullName);
         
-        alert('Registration successful! Please proceed to select your courses.');
-        window.location.href = 'courses.html';
+        alert('Registration successful! You are now logged in.');
+        window.location.href = 'index.html';
     } catch (error) {
         alert('Error during registration: ' + error.message);
     }
@@ -367,13 +367,14 @@ async function handleEnrollment(e) {
     }
     
     try {
-        // Add enrollment to student_course table
+        // Add enrollment to student_course table with pending status
         const { data, error } = await supabaseClient
             .from('student_course')
             .insert([
                 { 
                     s_id: studentId,
-                    c_code: courseCode
+                    c_code: courseCode,
+                    status: 'pending'
                 }
             ]);
         
@@ -384,7 +385,7 @@ async function handleEnrollment(e) {
                 throw error;
             }
         } else {
-            alert('Course registration submitted successfully!');
+            alert('Course registration submitted successfully! Your application is pending approval by a lecturer.');
         }
     } catch (error) {
         alert('Error during registration: ' + error.message);
@@ -444,13 +445,14 @@ async function handleCourseEnrollment(e) {
     }
     
     try {
-        // Add enrollment to student_course table
+        // Add enrollment to student_course table with pending status
         const { data, error } = await supabaseClient
             .from('student_course')
             .insert([
                 { 
                     s_id: studentId,
-                    c_code: courseCode
+                    c_code: courseCode,
+                    status: 'pending'
                 }
             ]);
         
@@ -461,7 +463,7 @@ async function handleCourseEnrollment(e) {
                 throw error;
             }
         } else {
-            alert('Course registration submitted successfully!');
+            alert('Course registration submitted successfully! Your application is pending approval by a lecturer.');
             document.getElementById('enrollment-form').reset();
         }
     } catch (error) {
@@ -592,18 +594,23 @@ async function loadLecturerApplications() {
     applicationsList.innerHTML = '<tr class="placeholder-row"><td colspan="6">Loading applications...</td></tr>';
     
     try {
-        // In a real application, this would query applications from the database
-        // For demo purposes, we'll create some sample data
-        
-        // First, get student_course entries
+        // First, get student_course entries with their status
         const { data: enrollments, error: enrollmentsError } = await supabaseClient
             .from('student_course')
             .select(`
                 s_id,
-                c_code
+                c_code,
+                status,
+                lecturer_notes
             `);
             
         if (enrollmentsError) throw enrollmentsError;
+        
+        // If no enrollments exist yet, show a message
+        if (enrollments.length === 0) {
+            applicationsList.innerHTML = '<tr class="placeholder-row"><td colspan="6">No applications found</td></tr>';
+            return;
+        }
         
         // Get student details for each enrollment
         const studentIds = [...new Set(enrollments.map(e => e.s_id))];
@@ -623,14 +630,13 @@ async function loadLecturerApplications() {
             
         if (coursesError) throw coursesError;
         
-        // Combine the data and add a fake status for demo
+        // Combine the data
         const applications = enrollments.map(enrollment => {
             const student = students.find(s => s.s_id === enrollment.s_id);
             const course = courses.find(c => c.c_code === enrollment.c_code);
             
-            // Generate a random status for demo
-            const statuses = ['pending', 'approved', 'rejected'];
-            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            // Use actual status from the database, defaulting to 'pending' if not set
+            const status = enrollment.status || 'pending';
             
             return {
                 id: `${enrollment.s_id}-${enrollment.c_code}`,
@@ -640,7 +646,8 @@ async function loadLecturerApplications() {
                 student_address: student?.address || 'No address provided',
                 course_code: enrollment.c_code,
                 course_name: course?.c_name || 'Unknown Course',
-                status: randomStatus
+                status: status,
+                lecturer_notes: enrollment.lecturer_notes || ''
             };
         });
         
@@ -657,7 +664,7 @@ async function loadLecturerApplications() {
         
         // Display applications
         if (filteredApplications.length === 0) {
-            applicationsList.innerHTML = '<tr class="placeholder-row"><td colspan="6">No applications found</td></tr>';
+            applicationsList.innerHTML = '<tr class="placeholder-row"><td colspan="6">No applications match your filters</td></tr>';
             return;
         }
         
@@ -672,7 +679,7 @@ async function loadLecturerApplications() {
                 <td><span class="status-badge ${app.status}">${app.status.charAt(0).toUpperCase() + app.status.slice(1)}</span></td>
                 <td>
                     <div class="action-buttons">
-                        <button class="btn btn-sm primary review-btn" data-id="${app.id}">Review</button>
+                        ${app.status === 'pending' ? `<button class="btn btn-sm primary review-btn" data-id="${app.id}">Review</button>` : ''}
                     </div>
                 </td>
             `;
@@ -715,24 +722,64 @@ function handleApplicationApproval() {
     const appId = document.getElementById('review-modal').getAttribute('data-app-id');
     const notes = document.getElementById('review-notes').value;
     
-    // In a real app, this would update the database
-    alert(`Application ${appId} approved with notes: ${notes}`);
+    // Parse the application ID to get student ID and course code
+    const [studentId, courseCode] = appId.split('-');
     
-    // Close the modal and refresh applications
-    document.getElementById('review-modal').style.display = 'none';
-    loadLecturerApplications();
+    // Update the application status in the database
+    (async () => {
+        try {
+            const { data, error } = await supabaseClient
+                .from('student_course')
+                .update({ 
+                    status: 'approved',
+                    lecturer_notes: notes
+                })
+                .eq('s_id', studentId)
+                .eq('c_code', courseCode);
+                
+            if (error) throw error;
+            
+            alert(`Application approved successfully!`);
+            
+            // Close the modal and refresh applications
+            document.getElementById('review-modal').style.display = 'none';
+            loadLecturerApplications();
+        } catch (error) {
+            alert(`Error updating application: ${error.message}`);
+        }
+    })();
 }
 
 function handleApplicationRejection() {
     const appId = document.getElementById('review-modal').getAttribute('data-app-id');
     const notes = document.getElementById('review-notes').value;
     
-    // In a real app, this would update the database
-    alert(`Application ${appId} rejected with notes: ${notes}`);
+    // Parse the application ID to get student ID and course code
+    const [studentId, courseCode] = appId.split('-');
     
-    // Close the modal and refresh applications
-    document.getElementById('review-modal').style.display = 'none';
-    loadLecturerApplications();
+    // Update the application status in the database
+    (async () => {
+        try {
+            const { data, error } = await supabaseClient
+                .from('student_course')
+                .update({ 
+                    status: 'rejected',
+                    lecturer_notes: notes
+                })
+                .eq('s_id', studentId)
+                .eq('c_code', courseCode);
+                
+            if (error) throw error;
+            
+            alert(`Application rejected.`);
+            
+            // Close the modal and refresh applications
+            document.getElementById('review-modal').style.display = 'none';
+            loadLecturerApplications();
+        } catch (error) {
+            alert(`Error updating application: ${error.message}`);
+        }
+    })();
 }
 
 // Officer Dashboard Functions
