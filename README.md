@@ -1,74 +1,66 @@
 # University Online Course Registration System
 
-A web-based system that allows prospective students to browse courses, register, and enroll in university courses. The system also includes administrative features for lecturers to approve qualifications and admission officers to verify student details.
+Hey there! This is my university project - an online course registration system. It lets students check out available courses, sign up, and register for them online. I also added a cool admin panel where lecturers can review student applications.
 
-## Features
+## What it does
 
-### Student Features
-- Browse available courses without logging in
-- Register as a new student with personal details
-- Login to existing account
-- View detailed course information
-- Enroll in courses
-- Track enrollment status
+### For Students:
+- Browse through all available courses without needing to log in
+- Create a new account with your details
+- Log in to your existing account
+- See all the course details
+- Register for courses you're interested in
+- Keep track of your course registrations
 
-### Admin Features
-- Separate login for staff members (lecturers and admission officers)
-- Lecturer dashboard to review student applications and check qualifications
-- Admission officer dashboard to verify student details and generate credentials
-- Filter applications by status and course
-- Review and approve/reject student applications
+### For Staff:
+- Login portal just for lecturers
+- Dashboard to check student applications and their qualifications
+- Filter students by application status or course
+- Accept or reject applications based on requirements
 
-## Database Structure
+## Database Tables
 
-The system utilizes the following Supabase tables:
+I'm using Supabase with these tables:
 
-- **student2**: Stores student information (s_id, s_name, email, address, staffno)
-- **course**: Stores course details (c_code, c_name, c_details, location)
-- **student_course**: Junction table for student enrollments (s_id, c_code)
-- Additional related tables (fulltime, parttime, personaltutor, student_book, book)
+- **student2**: Stores all student info (ID, name, email, address, etc.)
+- **course**: Has details about each course (code, name, description, location)
+- **student_course**: Links students to the courses they're enrolled in
+- Plus some other related tables for the university structure
 
-## Demo Credentials
+## Login Details
 
-### Student Access
-- Register as a new student via the registration form
+### Students:
+- Just register as a new student on the registration page
 
-### Staff Access
+### Staff:
 - **Lecturer:** 
-  - ID: admin
-  - Password: admin
-  
-- **Admission Officer:**
-  - ID: admin
+  - Username: admin
   - Password: admin
 
-## Application Workflow
+## How it Works
 
-1. Prospective students browse courses on the website
-2. Students register with their personal details
-3. Students select and enroll in courses
-4. Lecturers review applications and check qualifications
-5. Approved applications are forwarded to admission officers
-6. Admission officers verify student details and complete registration
-7. Students receive credentials to access the system
+1. Students browse available courses
+2. They register with their personal details
+3. They choose courses they want to take
+4. Lecturers review their applications
+5. Lecturers approve or reject applications based on qualifications
+6. Approved students can carry on with their chosen courses
 
-## Technical Implementation
+## Tech Stuff I Used
 
-- Frontend: HTML, CSS, JavaScript
-- Backend: Supabase (PostgreSQL database with REST API)
-- Authentication: Supabase Auth
+- Frontend: HTML, CSS, JavaScript (nothing fancy, just the basics)
+- Backend: Supabase (way easier than setting up a server myself)
+- Authentication: Built-in Supabase Auth
 
-## Setup and Installation
+## How to Run It
 
-1. Clone the repository
-2. Create a Supabase project and set up the necessary tables
-3. Copy `config.example.js` to `config.js` and update with your Supabase credentials:
+1. Clone this repo
+2. Set up a Supabase project with the right tables
+3. Copy `config.example.js` to `config.js` and put in your Supabase details:
    ```javascript
    const SUPABASE_URL = 'your-supabase-url';
    const SUPABASE_ANON_KEY = 'your-supabase-anon-key';
    ```
-4. Run the application using a local web server (e.g., `python -m http.server` or any other web server)
+4. Run with any basic web server (I use `python -m http.server` cause it's quick)
 
-## License
-
-[MIT License](LICENSE) 
+Feedback welcome! Let me know if you have any questions. 

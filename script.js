@@ -215,13 +215,6 @@ async function checkAuthState() {
         });
         document.querySelectorAll('.staff-only').forEach(el => el.style.display = 'block');
         
-        // Show only relevant dashboard link based on role
-        if (staffRole === 'lecturer') {
-            document.querySelectorAll('a[href="officer_dashboard.html"]').forEach(el => el.style.display = 'none');
-        } else if (staffRole === 'officer') {
-            document.querySelectorAll('a[href="lecturer_dashboard.html"]').forEach(el => el.style.display = 'none');
-        }
-        
         // Update staff name displays
         const staffName = localStorage.getItem('staffName');
         document.querySelectorAll('.staff-name').forEach(el => {
@@ -502,35 +495,20 @@ async function handleAdminLogin(e) {
     
     const staffId = document.getElementById('staffId').value;
     const password = document.getElementById('password').value;
-    const role = document.getElementById('role').value;
     
     try {
         // For demo purposes, we'll use a simple validation
         // In a real application, this would validate against the database
         
-        // Check if it's a lecturer or officer login
-        if (role === 'lecturer') {
-            // Demo lecturer credentials (in a real app, this would be a database check)
-            if (staffId === 'admin' && password === 'admin') {
-                localStorage.setItem('staffId', staffId);
-                localStorage.setItem('staffName', 'Demo Lecturer');
-                localStorage.setItem('staffRole', 'lecturer');
-                
-                window.location.href = 'lecturer_dashboard.html';
-            } else {
-                throw new Error('Invalid lecturer credentials');
-            }
-        } else if (role === 'officer') {
-            // Demo officer credentials
-            if (staffId === 'admin' && password === 'admin') {
-                localStorage.setItem('staffId', staffId);
-                localStorage.setItem('staffName', 'Demo Officer');
-                localStorage.setItem('staffRole', 'officer');
-                
-                window.location.href = 'officer_dashboard.html';
-            } else {
-                throw new Error('Invalid officer credentials');
-            }
+        // Demo lecturer credentials (in a real app, this would be a database check)
+        if (staffId === 'admin' && password === 'admin') {
+            localStorage.setItem('staffId', staffId);
+            localStorage.setItem('staffName', 'Demo Lecturer');
+            localStorage.setItem('staffRole', 'lecturer');
+            
+            window.location.href = 'lecturer_dashboard.html';
+        } else {
+            throw new Error('Invalid lecturer credentials');
         }
     } catch (error) {
         alert('Login failed: ' + error.message);

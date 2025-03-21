@@ -27,10 +27,6 @@
     <main class="container">
         <section class="form-container">
             <h1>Staff Login</h1>
-            <div class="tabs">
-                <button class="tab active" data-role="lecturer">Lecturer</button>
-                <button class="tab" data-role="officer">Admission Officer</button>
-            </div>
             <form id="admin-login-form">
                 <div class="form-group">
                     <label for="staffId">Staff ID</label>
@@ -57,23 +53,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
-    <script>
-        // Handle tab switching
-        const tabs = document.querySelectorAll('.tab');
-        const roleInput = document.getElementById('role');
-        
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs
-                tabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                tab.classList.add('active');
-                
-                // Update hidden role input
-                roleInput.value = tab.dataset.role;
-            });
-        });
-    </script>
 </body>
 </html> 
